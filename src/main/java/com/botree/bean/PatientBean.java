@@ -116,6 +116,9 @@ public class PatientBean {
 	}
 	public void setCity(String city) {
 		this.city = city;
+		
+		
+		
 	}
 	public Date getRegDate() {
 		return regDate;
