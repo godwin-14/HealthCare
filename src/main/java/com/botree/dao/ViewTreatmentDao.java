@@ -14,4 +14,8 @@ public class ViewTreatmentDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	
+	
+	
 }
