@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core" xmlns:ui="jakarta.faces.facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="template.xhtml">
+
+	<ui:define name="content">
+
+		<h:form id="patientForm">
+
+			<p:growl id="msgs" showDetail="true" />
+
+			<p:panel header="Patient Registration">
+
+
+				<p:panelGrid columns="4" columnClasses="label,value,label,value">
+
+					<p:outputLabel value="First Name:" />
+					<p:inputText value="#{patientBean.firstName}" required="true" />
+
+					<p:outputLabel value="Last Name:" />
+					<p:inputText value="#{patientBean.lastName}" required="true" />
+
+					<p:outputLabel value="Father / Husband Name:" />
+					<p:inputText value="#{patientBean.fatherName}" required="true" />
+
+					<p:outputLabel value="Date of Birth:" />
+					<p:datePicker value="#{patientBean.dob}" required="true" />
+
+					<p:outputLabel value="Gender:" />
+					<p:selectOneMenu value="#{patientBean.gender}">
+						<f:selectItem itemLabel="Male" itemValue="Male" />
+						<f:selectItem itemLabel="Female" itemValue="Female" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="CNIC:" />
+					<p:inputText value="#{patientBean.cnicNo}" required="true" />
+
+				</p:panelGrid>
+
+
+
+
+				<p:panelGrid columns="4">
+
+					<p:outputLabel value="Street Address:" />
+					<p:inputText value="#{patientBean.street}" required="true" />
+
+					<p:outputLabel value="Town:" />
+					<p:inputText value="#{patientBean.town}" />
+
+					<p:outputLabel value="City:" />
+					<p:selectOneMenu value="#{patientBean.city}">
+						<f:selectItem itemLabel="Select City" itemValue="" />
+						<f:selectItem itemLabel="Chennai" itemValue="Chennai" />
+						<f:selectItem itemLabel="Bangalore" itemValue="Bangalore" />
+						<f:selectItem itemLabel="Hyderabad" itemValue="Hyderabad" />
+					</p:selectOneMenu>
+
+				</p:panelGrid>
+
+
+				<p:separator />
+
+				<p:commandButton value="Register" action="#{patientBean.register}"
+					process="@form" update="patientForm msgs" icon="pi pi-save" />
+
+				<p:commandButton value="Clear" type="reset"
+					styleClass="ui-button-secondary" icon="pi pi-refresh" />
+
+			</p:panel>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+</html>
