@@ -10,8 +10,8 @@
 	<context:annotation-config/>
 	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="url" value="jdbc:mysql://localhost:3306/ams"></property>
-		<property name="username" value="godwin"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/hb"></property>
+		<property name="username" value="sirisha"></property>
 		<property name="password" value="Bsipl@123"></property>
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
 	</bean>
