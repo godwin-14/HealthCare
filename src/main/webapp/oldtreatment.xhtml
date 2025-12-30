@@ -1,0 +1,77 @@
+<ui:composition template="template.xhtml"
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:h="jakarta.faces.html"
+ xmlns:f="jakarta.faces.core"
+ xmlns:ui="jakarta.faces.facelets"
+ xmlns:p="http://primefaces.org/ui">
+
+<ui:define name="content">
+
+<h:form id="historyForm">
+<p:panel header="View Old Treatment">
+
+<p:panelGrid columns="3">
+    <p:outputLabel value="Patient ID" />
+    <p:inputText value="#{viewTreatmentBean.patientId}" />
+    <p:commandButton value="Submit"
+        action="#{viewTreatmentBean.loadHistory}"
+        update="@form" />
+</p:panelGrid>
+
+<p:fieldset legend="Patient Details"
+ rendered="#{not empty viewTreatmentBean.patient}"
+ style="margin-top:15px">
+
+<p:panelGrid columns="4">
+    <p:outputLabel value="Name" />
+    <h:outputText value="#{viewTreatmentBean.patient.firstName} #{viewTreatmentBean.patient.lastName}" />
+
+    <p:outputLabel value="PID" />
+    <h:outputText value="#{viewTreatmentBean.patient.pid}" />
+
+    <p:outputLabel value="Father/Husband" />
+    <h:outputText value="#{viewTreatmentBean.patient.fatherName}" />
+
+    <p:outputLabel value="Gender" />
+    <h:outputText value="#{viewTreatmentBean.patient.gender}" />
+
+    <p:outputLabel value="Address" />
+    <h:outputText value="#{viewTreatmentBean.patient.city}" />
+
+    <p:outputLabel value="CNIC" />
+    <h:outputText value="#{viewTreatmentBean.patient.cnicNo}" />
+</p:panelGrid>
+</p:fieldset>
+
+<p:dataTable value="#{viewTreatmentBean.encounters}"
+ var="e" rendered="#{not empty viewTreatmentBean.encounters}"
+ style="margin-top:20px">
+
+<p:column headerText="Encounter No">
+    #{e.encounterId}
+</p:column>
+
+<p:column headerText="Date &amp; Time">
+    #{e.encounterDateTime}
+</p:column>
+
+<p:column headerText="MLC Type">
+    #{e.mlcType}
+</p:column>
+
+<p:column headerText="Encounter Info">
+    <h:link value="View Details"
+        outcome="encounterInfo.xhtml">
+        <f:param name="encounterId" value="#{e.encounterId}" />
+    </h:link>
+</p:column>
+
+
+
+</p:dataTable>
+
+</p:panel>
+</h:form>
+
+</ui:define>
+</ui:composition>

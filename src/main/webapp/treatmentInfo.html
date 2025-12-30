@@ -1,0 +1,28 @@
+<ui:composition template="template.xhtml"
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:h="jakarta.faces.html"
+ xmlns:f="jakarta.faces.core"
+ xmlns:ui="jakarta.faces.facelets"
+ xmlns:p="http://primefaces.org/ui">
+
+<ui:define name="content">
+
+<h:form id="encounterform">
+
+<p:dataTable value="#{treatmentInfoBean.treatments}" var="t">
+
+<p:column headerText="Treatment No">#{t.id}</p:column>
+<p:column headerText="Date">#{t.encounterDate}</p:column>
+<p:column headerText="Doctor">#{t.doctorName}</p:column>
+
+<p:column>
+<h:link value="View Details" outcome="treatmentDetails.xhtml">
+    <f:param name="treatmentId" value="#{t.id}" />
+</h:link>
+</p:column>
+
+</p:dataTable>
+
+</h:form>
+</ui:define>
+</ui:composition>

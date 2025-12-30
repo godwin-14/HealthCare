@@ -1,0 +1,39 @@
+<ui:composition template="template.xhtml"
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:h="jakarta.faces.html"
+ xmlns:f="jakarta.faces.core"
+ xmlns:ui="jakarta.faces.facelets"
+ xmlns:p="http://primefaces.org/ui">
+
+<ui:define name="content">
+
+<h:form id="encounterform">
+
+<p:panel header="Issue Medicine">
+
+    <p:inputText value="#{pharmacyBean.patientId}" placeholder="Enter PID" />
+    <p:commandButton value="Submit"
+        action="#{pharmacyBean.loadTreatments}"
+        update="tbl"/>
+
+    <p:dataTable id="tbl" value="#{pharmacyBean.treatments}" var="t">
+        <p:column headerText="Treatment No">#{t.treatmentId}</p:column>
+        <p:column headerText="Doctor">#{t.treatedBy}</p:column>
+        <p:column headerText="Date">
+            <h:outputText value="#{t.encounterDate}">
+                <f:convertDateTime pattern="dd-MM-yyyy HH:mm"/>
+            </h:outputText>
+        </p:column>
+        <p:column>
+            <p:commandLink value="Select"
+                action="#{pharmacyBean.selectTreatment(t)}"/>
+        </p:column>
+    </p:dataTable>
+
+</p:panel>
+
+
+</h:form>
+
+</ui:define>
+</ui:composition>

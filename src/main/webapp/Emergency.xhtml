@@ -1,0 +1,112 @@
+<ui:composition template="template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core"
+	xmlns:ui="jakarta.faces.facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+
+		<h:form id="emergencyForm">
+
+			<p:growl id="msgs" showDetail="true" />
+
+			<p:panel header="Emergency Encounter Details">
+
+				<p:outputLabel for="searchName" value="Search Patient by Name:" />
+				<p:inputText id="searchName" value="#{emergencyBean.searchName}"
+					placeholder="Enter name" />
+
+				<p:commandButton value="Find" action="#{emergencyBean.findPatient}"
+					process="@this searchName" update="@form" icon="pi pi-search" />
+
+				<p:dataTable id="patientTable"
+					value="#{emergencyBean.searchResults}" var="p"
+					rowKey="#{p.pid}"
+					selection="#{emergencyBean.patient}"
+					selectionMode="single">
+
+					<p:ajax event="rowSelect"
+						process="@this"
+						listener="#{emergencyBean.onRowSelect}"
+						update=":emergencyForm:encounterWrapper :emergencyForm:msgs" />
+
+					<p:column selectionMode="single" style="width:40px" />
+					<p:column headerText="PID">#{p.pid}</p:column>
+					<p:column headerText="Patient Name">#{p.firstName} #{p.lastName}</p:column>
+					<p:column headerText="Father Name">#{p.fatherName}</p:column>
+					<p:column headerText="Gender">#{p.gender}</p:column>
+					<p:column headerText="City">#{p.city}</p:column>
+				</p:dataTable>
+
+				<p:outputPanel id="encounterWrapper">
+
+					<p:outputPanel rendered="#{not empty emergencyBean.patient}">
+
+						<p:separator />
+
+						<h3>Selected Patient: #{emergencyBean.patientName}</h3>
+
+						<p:dataTable id="encounterTable"
+							value="#{emergencyBean.encounterList}" var="enc"
+							emptyMessage="No past encounters found"
+							style="margin-bottom:20px">
+							<p:column headerText="Encounter Date">#{enc.encounterDate}</p:column>
+							<p:column headerText="MLC">#{enc.mlc}</p:column>
+							<p:column headerText="Brought By">#{enc.broughtBy}</p:column>
+							<p:column headerText="Phone Number">#{enc.phoneNumber}</p:column>
+							<p:column headerText="Referred">#{enc.referenceName}</p:column>
+						</p:dataTable>
+
+						<p:panelGrid columns="2" style="margin-top:10px">
+							<p:outputLabel value="Is Referred?" />
+							<p:selectOneRadio value="#{emergencyBean.isReferred}">
+								<f:selectItem itemLabel="Yes" itemValue="Yes" />
+								<f:selectItem itemLabel="No" itemValue="No" />
+								<p:ajax
+									update=":emergencyForm:referencePanel"/>
+							</p:selectOneRadio>
+						</p:panelGrid>
+
+						<p:outputPanel id="referencePanel"
+							rendered="#{emergencyBean.isReferred eq 'Yes'}"
+							style="margin-top:15px">
+							<p:fieldset legend="Reference Details">
+								<p:panelGrid columns="4">
+									<p:outputLabel value="Reference Name:" />
+									<p:inputText value="#{emergencyBean.refName}" />
+
+									<p:outputLabel value="Reference Notes:" />
+									<p:inputTextarea value="#{emergencyBean.refNotes}" rows="3" />
+
+									<p:outputLabel value="Reference Phone:" />
+									<p:inputText value="#{emergencyBean.refPhone}" />
+
+									<p:outputLabel value="File ID:" />
+									<h:outputText value="#{emergencyBean.fileId}" />
+								</p:panelGrid>
+							</p:fieldset>
+						</p:outputPanel>
+
+						<p:separator />
+
+						<p:commandButton value="Submit"
+							action="#{emergencyBean.saveCounter}"
+							update="@form"
+							icon="pi pi-save" />
+
+						<p:commandButton value="Clear" type="reset"
+							styleClass="ui-button-secondary"
+							icon="pi pi-refresh" />
+
+					</p:outputPanel>
+
+				</p:outputPanel>
+
+			</p:panel>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

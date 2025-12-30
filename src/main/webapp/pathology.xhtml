@@ -1,0 +1,42 @@
+<ui:composition template="template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="primefaces">
+
+	<ui:define name="content">
+
+		<h:form>
+
+			<p:panel header="Pathology Module">
+
+				<p:panelGrid columns="6" cellpadding="15" style="width:auto;">
+
+					<p:commandButton value="Give Discount" 
+						outcome="giveDiscount.xhtml" style="width:200px" />
+
+					<p:commandButton value="Take Fee" 
+						outcome="takeFee.xhtml" style="width:200px" />
+
+					<p:commandButton value="Take Sample" 
+						outcome="takeSample.xhtml" style="width:200px" />
+
+					<p:commandButton value="Sample Reject" 
+						outcome="sampleReject.xhtml" style="width:200px" />
+
+					<p:commandButton value="Enter Results" 
+						outcome="enterResults.xhtml" style="width:200px" />
+
+					<p:commandButton value="Get Reports Here" 
+						outcome="getReports.xhtml" style="width:200px" />
+
+					<p:commandButton value="Edit Test" 
+						outcome="editTest.xhtml" style="width:200px" />
+
+				</p:panelGrid>
+
+			</p:panel>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
