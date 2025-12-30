@@ -79,9 +79,6 @@ public class EmerEncounter {
 		    this.broughtBy = broughtBy;
 		    this.phoneNumber = phoneNumber;
 		    this.isReferred = isReferred;
-		    this.referenceName = referenceName;
-		    this.referenceNotes = referenceNotes;
-		    this.referencePhoneNumber = referencePhoneNumber;
 		    this.fileId = fileId;
 		}
 
