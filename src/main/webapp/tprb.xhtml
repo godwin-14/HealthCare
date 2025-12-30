@@ -1,0 +1,103 @@
+<ui:composition template="template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core"
+	xmlns:ui="jakarta.faces.facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+
+		<h:form id="tprbForm">
+
+			<p:growl id="msgs" showDetail="true" />
+
+			<p:panel header="Search Patient">
+				<p:panelGrid columns="2" columnClasses="label,value">
+
+					<p:outputLabel value="Patient Name:" />
+					<p:inputText value="#{tprbBean.searchName}" placeholder="Enter name" />
+
+					<p:commandButton value="Find"
+						action="#{tprbBean.searchPatient}"
+						update="@form msgs" />
+				</p:panelGrid>
+			</p:panel>
+
+			<br />
+
+			<p:panel header="Patient Details" rendered="#{tprbBean.showPatient}">
+
+				<p:panelGrid columns="4" columnClasses="label,value,label,value">
+
+					<h:outputText value="Name:" />
+					<h:outputText value="#{tprbBean.patient.firstName} #{tprbBean.patient.lastName}" />
+
+					<h:outputText value="PID:" />
+					<h:outputText value="#{tprbBean.patient.pid}" />
+
+					<h:outputText value="Father Name:" />
+					<h:outputText value="#{tprbBean.patient.fatherName}" />
+
+					<h:outputText value="Gender:" />
+					<h:outputText value="#{tprbBean.patient.gender}" />
+
+					<h:outputText value="City:" />
+					<h:outputText value="#{tprbBean.patient.city}" />
+
+				</p:panelGrid>
+
+				<br />
+
+				<p:commandButton value="Check TPRB" 
+					action="#{tprbBean.openTPRB}" 
+					update="@form" icon="pi pi-arrow-right" />
+
+			</p:panel>
+
+			<br />
+
+			<p:panel header="TPRB Details" rendered="#{tprbBean.showTPRB}">
+
+    <p:panelGrid columns="4" columnClasses="label,value,label,value">
+
+        <h:outputText value="B.P Min:" />
+        <p:inputText value="#{tprbBean.bpMin}" required="true">
+            <f:validateLongRange minimum="0" maximum="300"/>
+        </p:inputText>
+
+        <h:outputText value="B.P Max:" />
+        <p:inputText value="#{tprbBean.bpMax}" required="true">
+            <f:validateLongRange minimum="0" maximum="300"/>
+        </p:inputText>
+
+        <h:outputText value="Pulse Rate:" />
+        <p:inputText value="#{tprbBean.pulseRate}" required="true">
+            <f:validateLongRange minimum="0" maximum="200"/>
+        </p:inputText>
+
+        <h:outputText value="Temperature:" />
+        <p:inputText value="#{tprbBean.temperature}" required="true">
+            <f:validateLongRange minimum="90" maximum="110"/>
+        </p:inputText>
+
+        <h:outputText value="Respiration Rate:" />
+        <p:inputText value="#{tprbBean.respirationRate}" required="true">
+            <f:validateLongRange minimum="0" maximum="100"/>
+        </p:inputText>
+
+    </p:panelGrid>
+
+    <br />
+
+    <p:commandButton value="Save TPRB"
+        action="#{tprbBean.saveTPRB}"
+        update="@form msgs"
+        icon="pi pi-save" />
+
+</p:panel>
+
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
