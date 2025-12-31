@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import com.botree.dao.EncounterDao;
 import com.botree.dao.PatientDao;
 
-import com.botree.dao.TPRPDao;
+import com.botree.dao.TPRBDao;
 import com.botree.model.EmerEncounter;
 import com.botree.model.Patient;
 import com.botree.model.TPRB;
@@ -22,7 +22,7 @@ import jakarta.faces.context.FacesContext;
 public class TprbBean {
 
 	@Autowired
-	private TPRPDao tprpDao;
+	private TPRBDao tprbDao;
 
 	@Autowired
 	private PatientDao patientDao;
@@ -152,7 +152,7 @@ public class TprbBean {
 
 		TPRB tprb = new TPRB(bpMin, bpMax, pulseRate, temperature, respirationRate, patient, encounter, new Date());
 
-		boolean success = tprpDao.save(tprb);
+		boolean success = tprbDao.save(tprb);
 
 		if (success) {
 			FacesContext.getCurrentInstance().addMessage("msgs",
