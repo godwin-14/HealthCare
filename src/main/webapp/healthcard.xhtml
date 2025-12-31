@@ -1,0 +1,69 @@
+<ui:composition template="template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core" xmlns:ui="jakarta.faces.facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+
+		<h:form id="healthCardForm">
+
+			<p:growl id="msgs" showDetail="true" />
+
+			<p:panel header="Search Patient for Health Card">
+
+				<p:outputLabel for="pid" value="Patient ID:" />
+				<p:inputText id="pid" value="#{healthCardBean.patientId}"
+					placeholder="Enter Patient ID" />
+
+				<p:commandButton value="Search"
+					action="#{healthCardBean.findPatient}"
+					update=":healthCardForm:healthCardPanel msgs" icon="pi pi-search" />
+			</p:panel>
+
+			<p:outputPanel id="healthCardPanel" layout="block"
+				style="margin-top:20px;
+                                  display:#{healthCardBean.patient ne null ? 'block' : 'none'}">
+
+				<p:panel header="Health Card"
+					style="border:2px solid #333;
+                                padding:20px;
+                                width:400px;
+                                background:#f5f5f5">
+
+
+					<p:panelGrid columns="2">
+
+						<h:outputText value="Patient Name:" />
+						<h:outputText
+							value="#{healthCardBean.patient.firstName}
+                                              #{healthCardBean.patient.lastName}" />
+
+						<h:outputText value="Date of Birth:" />
+						<h:outputText value="#{healthCardBean.patient.dob}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+
+						<h:outputText value="Date of Registration:" />
+						<h:outputText value="#{healthCardBean.patient.regDate}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+
+						<h:outputText value="Address:" />
+						<h:outputText
+							value="#{healthCardBean.patient.street},
+                                              #{healthCardBean.patient.town},
+                                              #{healthCardBean.patient.city}" />
+						<h:outputText value="PID: #{healthCardBean.patient.pid}"
+							style="font-weight:bold;
+                                         display:block;
+                                         text-align:right;
+                                         margin-top:10px" />
+					</p:panelGrid>
+
+
+				</p:panel>
+			</p:outputPanel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
