@@ -12,7 +12,7 @@
 			<p:panel header="Search Patient for Health Card">
 
 				<p:outputLabel for="pid" value="Patient ID:" />
-				<p:inputText id="pid" value="#{healthcardBean.patientId}"
+				<p:inputText id="pid" value="#{healthCardBean.patientId}"
 					placeholder="Enter Patient ID" />
 
 				<p:commandButton value="Search"
@@ -22,7 +22,7 @@
 
 			<p:outputPanel id="healthCardPanel" layout="block"
 				style="margin-top:20px;
-                                  display:#{healthcardBean.patient ne null ? 'block' : 'none'}">
+                                  display:#{healthCardBean.patient ne null ? 'block' : 'none'}">
 
 				<p:panel header="Health Card"
 					style="border:2px solid #333;
@@ -35,25 +35,25 @@
 
 						<h:outputText value="Patient Name:" />
 						<h:outputText
-							value="#{healthcardBean.patient.firstName}
-                                              #{healthcardBean.patient.lastName}" />
+							value="#{healthCardBean.patient.firstName}
+                                              #{healthCardBean.patient.lastName}" />
 
 						<h:outputText value="Date of Birth:" />
-						<h:outputText value="#{healthcardBean.patient.dob}">
+						<h:outputText value="#{healthCardBean.patient.dob}">
 							<f:convertDateTime pattern="dd/MM/yyyy" />
 						</h:outputText>
 
 						<h:outputText value="Date of Registration:" />
-						<h:outputText value="#{healthcardBean.patient.regDate}">
+						<h:outputText value="#{healthCardBean.patient.regDate}">
 							<f:convertDateTime pattern="dd/MM/yyyy" />
 						</h:outputText>
 
 						<h:outputText value="Address:" />
 						<h:outputText
-							value="#{healthcardBean.patient.street},
-                                              #{healthcardBean.patient.town},
-                                              #{healthcardBean.patient.city}" />
-						<h:outputText value="PID: #{healthcardBean.patient.pid}"
+							value="#{healthCardBean.patient.street},
+                                              #{healthCardBean.patient.town},
+                                              #{healthCardBean.patient.city}" />
+						<h:outputText value="PID: #{healthCardBean.patient.pid}"
 							style="font-weight:bold;
                                          display:block;
                                          text-align:right;
