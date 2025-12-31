@@ -12,7 +12,10 @@ import com.botree.dao.PatientDao;
 
 import com.botree.model.Patient;
 
+
 import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 
@@ -23,12 +26,6 @@ public class PatientBean {
 
 	@Autowired
 	private PatientDao patientDao;
-		
-	 @PostConstruct
-	    public void init() {
-		 // testing update
-	        patient = new Patient();
-	    }
 	
 	private String searchName; 
     private Patient patient; 
@@ -132,20 +129,44 @@ public class PatientBean {
 	}
 	
 	
-	
+	public void register()
+	{
+		
+		Patient patient = new Patient(firstName, lastName, fatherName, dob, cnicNo, gender, street, town, city, new Date());
+		boolean success = patientDao.register(patient);
+		if(success)
+		{
+			FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_INFO, "success", "Patient registered"));
+		}
+		else
+		{
+			FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "failed", "Patient exists"));
+		}
+	}
+    
 	public void updatePatient() { 
-	    if (patient != null) {
-	        patientDao.update(patient);
+        if (patient != null) {
+            patientDao.update(patient);
+            FacesContext.getCurrentInstance().addMessage("msg",
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Updated", "Patient updated successfully"));
+        }
+    }
 
-	        FacesContext.getCurrentInstance().addMessage(null,
-	            new FacesMessage(
-	                FacesMessage.SEVERITY_INFO,
-	                "Updated",
-	                "Patient updated successfully"
-	            )
-	        );
-	    }
-  } 
+    public void searchPatient() {
+        if (searchName == null || searchName.trim().isEmpty()) {
+            FacesContext.getCurrentInstance().addMessage("msg",
+                new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Enter patient name"));
+            return;
+        }
 
-}   
+        List<Patient> results = patientDao.searchByName(searchName.trim());
+        if (!results.isEmpty()) {
+            patient = results.get(0); 
+        } else {
+            patient = null;
+            FacesContext.getCurrentInstance().addMessage("msg",
+                new FacesMessage(FacesMessage.SEVERITY_WARN, "Not found", "No patient found"));
+        }
+    }
 
+}
