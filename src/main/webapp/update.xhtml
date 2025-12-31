@@ -1,0 +1,43 @@
+<ui:composition template="template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="jakarta.faces.html"
+    xmlns:ui="jakarta.faces.facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <h:form id="form">
+
+            <p:growl id="msgs" showDetail="true" />
+
+            <p:panel header="Update Patient Details">
+
+                <p:panelGrid columns="4">
+
+                    <p:outputLabel value="First Name:" />
+                    <p:inputText value="#{patientBean.patient.firstName}" />
+
+                    <p:outputLabel value="Last Name:" />
+                    <p:inputText value="#{patientBean.patient.lastName}" />
+
+                    <p:outputLabel value="Father Name:" />
+                    <p:inputText value="#{patientBean.patient.fatherName}" />
+
+                    <p:outputLabel value="City:" />
+                    <p:inputText value="#{patientBean.patient.city}" />
+
+                </p:panelGrid>
+
+                <p:separator />
+
+                <p:commandButton value="Update"
+                    action="#{patientBean.updatePatient}"
+                    update="@form msgs"
+                    icon="pi pi-save" />
+
+            </p:panel>
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>

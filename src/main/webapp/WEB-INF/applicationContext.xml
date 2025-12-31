@@ -11,12 +11,9 @@
 	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="url" value="jdbc:mysql://localhost:3306/hb"></property>
-<<<<<<< HEAD
+
 		<property name="username" value="sirisha"></property>
-=======
-		<property name="username" value="godwin"></property>
->>>>>>> branch 'master' of https://github.com/godwin-14/HealthCare.git
-		<property name="password" value="Bsipl@123"></property>
+				<property name="password" value="Bsipl@123"></property>
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
 	</bean>
 	
