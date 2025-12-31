@@ -20,8 +20,14 @@ import jakarta.faces.context.FacesContext;
 @Scope("session")
 public class TprbBean {
 
+<<<<<<< HEAD
     @Autowired
     private TPRBDao tprbDao;
+=======
+	@Autowired
+	private TPRBDao tprbDao;
+	
+>>>>>>> branch 'master' of https://github.com/godwin-14/HealthCare.git
 
     @Autowired
     private PatientDao patientDao;

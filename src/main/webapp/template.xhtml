@@ -16,35 +16,12 @@
 
     
     <p:menubar>
-    <ui:insert name="nav">
-     <p:menubar>
-        <p:menuitem value="Patient Registration"  outcome="register.xhtml"/>
-      	<p:menuitem value="Search Patient"  outcome="Emergency.xhtml"/>\
-        <p:menuitem value="Emergency "  outcome="tprb.xhtml"/>
-        <p:menuitem value="Emergency-New treatment"  outcome="treatment.xhtml"/>
-        
-      
+        <p:menuitem value="Patient Registration" outcome="register.xhtml"/>
+        <p:menuitem value="Search Patient" outcome="Emergency.xhtml"/>
+        <p:menuitem value="Emergency" outcome="tprb.xhtml"/>
+        <p:menuitem value="Emergency-New treatment" outcome="treatment.xhtml"/>
+        <p:menuitem value="Update Patient" outcome="update.xhtml"/>
     </p:menubar>
-
-
-    <p:menuitem value="Update Patient" outcome="update.xhtml"/>
-
-    <!-- COMMENT REST (files not created yet) -->
-    <!--
-    <p:menuitem value="Patient Registration" outcome="index.xhtml"/>
-    <p:menuitem value="Search Patient" outcome="Emergency.xhtml"/>
-    <p:menuitem value="Healthcard" outcome="healthcard.xhtml"/>
-    <p:menuitem value="Emergency" outcome="tprb.xhtml"/>
-    <p:menuitem value="New Treatment" outcome="treatment.xhtml"/>
-    <p:menuitem value="Old Treatment" outcome="oldtreatment.xhtml"/>
-    <p:menuitem value="Pharmacy" outcome="pharmacy.xhtml"/>
-    <p:menuitem value="Pathology" outcome="pathology.xhtml"/>
-    -->
-
-</p:menubar>
-    
-
-</ui:insert>
     <div class="content">
         <ui:insert name="content"/>
     </div>

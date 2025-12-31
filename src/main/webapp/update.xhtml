@@ -10,7 +10,17 @@
 
             <p:growl id="msgs" showDetail="true" />
 
-            <p:panel header="Update Patient Details">
+            <p:panel header="Search Patient">
+                <p:panelGrid columns="3">
+                    <p:outputLabel value="Patient ID:" />
+                    <p:inputText id="pidInput" value="#{patientBean.searchPid}" />
+                    <p:commandButton value="Load Patient" 
+                        action="#{patientBean.loadPatientById}"
+                        update="@form msgs" />
+                </p:panelGrid>
+            </p:panel>
+
+            <p:panel header="Update Patient Details" rendered="#{patientBean.patient != null}">
 
                 <p:panelGrid columns="4">
 
@@ -20,9 +30,6 @@
 
                     <p:outputLabel value="Last Name:" />
                     <p:inputText value="#{patientBean.patient.lastName}" />
-
-                    <p:outputLabel value="Father Name:" />
-                    <p:inputText value="#{patientBean.patient.fatherName}" />
 
                     <p:outputLabel value="City:" />
                     <p:inputText value="#{patientBean.patient.city}" />
