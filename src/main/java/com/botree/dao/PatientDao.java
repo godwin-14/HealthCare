@@ -78,7 +78,6 @@ public class PatientDao {
 	        var tran = session.beginTransaction();
 
 	        session.update(patient);
-	        System.out.println();
 	        tran.commit();
 	        session.close();
 	  }

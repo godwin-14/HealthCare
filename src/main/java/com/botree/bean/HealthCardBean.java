@@ -22,6 +22,7 @@ public class HealthCardBean {
 
 	public Integer getPatientId() {
 		return patientId;
+		
 	}
 
 	public void setPatientId(Integer patientId) {
