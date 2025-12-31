@@ -37,6 +37,14 @@
 					<p:column headerText="Father Name">#{p.fatherName}</p:column>
 					<p:column headerText="Gender">#{p.gender}</p:column>
 					<p:column headerText="City">#{p.city}</p:column>
+					<p:column headerText="Action">
+						<p:commandButton value="Details" 
+							onclick="PF('patientDialog').show()" 
+							update=":patientDetailForm"
+							process="@this">
+							<f:setPropertyActionListener target="#{emergencyBean.selectedPatient}" value="#{p}" />
+						</p:commandButton>
+					</p:column>
 				</p:dataTable>
 
 				<p:outputPanel id="encounterWrapper">
@@ -64,67 +72,7 @@
 							</p:panelGrid>
 						</p:fieldset>
 
-						<p:dataTable id="encounterTable"
-							value="#{emergencyBean.encounterList}" var="enc"
-							emptyMessage="No past encounters found"
-							style="margin-bottom:20px">
-							<p:column headerText="Encounter Date">#{enc.encounterDate}</p:column>
-							<p:column headerText="MLC">#{enc.mlc}</p:column>
-							<p:column headerText="Brought By">#{enc.broughtBy}</p:column>
-							<p:column headerText="Phone Number">#{enc.phoneNumber}</p:column>
-							<p:column headerText="Referred">#{enc.referenceName}</p:column>
-						</p:dataTable>
-
-						<p:fieldset legend="Emergency Encounter Details" style="margin-top:15px">
-							<p:panelGrid columns="4">
-								<p:outputLabel value="Encounter Date:" />
-								<p:calendar value="#{emergencyBean.encounterDate}" pattern="dd/MM/yyyy HH:mm" showTime="true" />
-								<p:outputLabel value="MLC:" />
-								<p:inputText value="#{emergencyBean.mlc}" />
-								<p:outputLabel value="Brought By:" />
-								<p:inputText value="#{emergencyBean.broughtBy}" />
-								<p:outputLabel value="Phone Number:" />
-								<p:inputText value="#{emergencyBean.phoneNumber}" />
-								<p:outputLabel value="Is Referred?" />
-								<p:selectOneRadio value="#{emergencyBean.isReferred}">
-									<f:selectItem itemLabel="Yes" itemValue="Yes" />
-									<f:selectItem itemLabel="No" itemValue="No" />
-									<p:ajax update=":emergencyForm:referencePanel"/>
-								</p:selectOneRadio>
-							</p:panelGrid>
-						</p:fieldset>
-
-						<p:outputPanel id="referencePanel"
-							rendered="#{emergencyBean.isReferred eq 'Yes'}"
-							style="margin-top:15px">
-							<p:fieldset legend="Reference Details">
-								<p:panelGrid columns="4">
-									<p:outputLabel value="Reference Name:" />
-									<p:inputText value="#{emergencyBean.refName}" />
-
-									<p:outputLabel value="Reference Notes:" />
-									<p:inputTextarea value="#{emergencyBean.refNotes}" rows="3" />
-
-									<p:outputLabel value="Reference Phone:" />
-									<p:inputText value="#{emergencyBean.refPhone}" />
-
-									<p:outputLabel value="File ID:" />
-									<h:outputText value="#{emergencyBean.fileId}" />
-								</p:panelGrid>
-							</p:fieldset>
-						</p:outputPanel>
-
-						<p:separator />
-
-						<p:commandButton value="Submit"
-							action="#{emergencyBean.saveCounter}"
-							update="@form"
-							icon="pi pi-save" />
-
-						<p:commandButton value="Clear" type="reset"
-							styleClass="ui-button-secondary"
-							icon="pi pi-refresh" />
-
+						
 					</p:outputPanel>
 
 				</p:outputPanel>
@@ -132,6 +80,38 @@
 			</p:panel>
 
 		</h:form>
+		
+		<p:dialog header="Patient Details" widgetVar="patientDialog" modal="true" width="500">
+			<h:form id="patientDetailForm">
+				<p:panelGrid columns="2" rendered="#{emergencyBean.selectedPatient != null}">
+					<p:outputLabel value="Patient ID:" />
+					<h:outputText value="#{emergencyBean.selectedPatient.pid}" />
+					
+					<p:outputLabel value="Full Name:" />
+					<h:outputText value="#{emergencyBean.selectedPatient.firstName} #{emergencyBean.selectedPatient.lastName}" />
+					
+					<p:outputLabel value="Father Name:" />
+					<h:outputText value="#{emergencyBean.selectedPatient.fatherName}" />
+					
+					<p:outputLabel value="Date of Birth:" />
+					<h:outputText value="#{emergencyBean.selectedPatient.dob}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+					
+					<p:outputLabel value="Gender:" />
+					<h:outputText value="#{emergencyBean.selectedPatient.gender}" />
+					
+					<p:outputLabel value="CNIC:" />
+					<h:outputText value="#{emergencyBean.selectedPatient.cnicNo}" />
+					
+					<p:outputLabel value="Phone:" />
+					<h:outputText value="#{emergencyBean.selectedPatient.phoneNumber}" />
+					
+					<p:outputLabel value="Address:" />
+					<h:outputText value="#{emergencyBean.selectedPatient.street}, #{emergencyBean.selectedPatient.town}, #{emergencyBean.selectedPatient.city}" />
+				</p:panelGrid>
+			</h:form>
+		</p:dialog>
 
 	</ui:define>
 

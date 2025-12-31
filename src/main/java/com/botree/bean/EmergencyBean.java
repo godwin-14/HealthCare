@@ -29,6 +29,7 @@ public class EmergencyBean implements Serializable {
 	private String searchName;
 	private List<Patient> searchResults = new ArrayList<>();
 	private Patient patient;
+	private Patient selectedPatient;
 
 	private String patientName;
 	private int patientId;
@@ -299,6 +300,14 @@ public class EmergencyBean implements Serializable {
 
 	public void setEncounterDate(Date encounterDate) {
 		this.encounterDate = encounterDate;
+	}
+	
+	public Patient getSelectedPatient() {
+		return selectedPatient;
+	}
+
+	public void setSelectedPatient(Patient selectedPatient) {
+		this.selectedPatient = selectedPatient;
 	}
 	
 
