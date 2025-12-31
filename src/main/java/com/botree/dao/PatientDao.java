@@ -4,6 +4,7 @@ package com.botree.dao;
 import java.util.Collections;
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,17 +21,22 @@ public class PatientDao {
 
 	
 
-	public List<Patient> searchById(int pid)
-	{
-	    var session = sessionFactory.openSession();
-	    var trans =  session.beginTransaction();
-	    var query = session.createQuery("from Patient p where p.pid = :pid", Patient.class);
-	    query.setParameter("pid", pid);
-	    var list = query.getResultList();
-	    session.close();
-	    trans.commit();
-	    return list;
-	}
+//	public List<Patient> searchById(int pid)
+//	{
+//	    var session = sessionFactory.openSession();
+//	    var trans =  session.beginTransaction();
+//	    var query = session.createQuery("from Patient p where p.pid = :pid", Patient.class);
+//	    query.setParameter("pid", pid);
+//	    var list = query.getResultList();
+//	    session.close();
+//	    trans.commit();
+//	    return list;
+//	}
+	
+	public Patient searchById(int pid) {
+        Session session = sessionFactory.openSession();
+        return session.get(Patient.class, pid);
+    }
 
 
 

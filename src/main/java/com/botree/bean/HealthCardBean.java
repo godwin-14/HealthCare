@@ -46,8 +46,8 @@ public class HealthCardBean {
 
 		var list = patientDao.searchById(patientId);
 
-		if (!list.isEmpty()) {
-			patient = list.get(0);
+		if (list!=null) {
+			patient = list;
 		} else {
 			patient = null;
 			FacesContext.getCurrentInstance().addMessage("msgs",
