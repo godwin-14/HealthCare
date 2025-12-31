@@ -1,5 +1,7 @@
 package com.botree.dao;
 
+
+import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -15,6 +17,7 @@ public class PatientDao {
 	private SessionFactory sessionFactory;
 	
 	
+
 	public List<Patient> searchById(int pid)
 	{
 	    var session = sessionFactory.openSession();
@@ -26,4 +29,23 @@ public class PatientDao {
 	    trans.commit();
 	    return list;
 	}
+
+
+	  public List<Patient> searchByName(String searchName)
+	  {
+		    if (searchName == null || searchName.trim().isEmpty()) {
+		        return Collections.emptyList();
+		    }
+
+		    String searchParam = "%" + searchName.trim().toLowerCase() + "%";
+
+		    try (var session = sessionFactory.openSession()) {
+		        var query = session.createQuery(
+		            "from Patient p where lower(trim(p.firstName)) like :name or lower(trim(p.lastName)) like :name",
+		            Patient.class
+		        );
+		        query.setParameter("name", searchParam);
+		        return query.getResultList();
+		    }
+		}
 }
