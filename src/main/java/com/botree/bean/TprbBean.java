@@ -8,12 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.botree.dao.EncounterDao;
 import com.botree.dao.PatientDao;
-<<<<<<< HEAD
-import com.botree.dao.TPRPDao;
-=======
 import com.botree.dao.TPRBDao;
-import com.botree.dao.TPRBDao;
->>>>>>> branch 'master' of https://github.com/godwin-14/HealthCare.git
 import com.botree.model.EmerEncounter;
 import com.botree.model.Patient;
 import com.botree.model.TPRB;
@@ -27,6 +22,7 @@ public class TprbBean {
 
 	@Autowired
 	private TPRBDao tprbDao;
+	
 
 	@Autowired
 	private PatientDao patientDao;
