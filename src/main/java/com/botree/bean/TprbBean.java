@@ -5,15 +5,10 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import com.botree.dao.TPRPDao;
+
 import com.botree.dao.EncounterDao;
 import com.botree.dao.PatientDao;
-<<<<<<< HEAD
-import com.botree.dao.TPRPDao;
-=======
 import com.botree.dao.TPRBDao;
-import com.botree.dao.TPRBDao;
->>>>>>> branch 'master' of https://github.com/godwin-14/HealthCare.git
 import com.botree.model.EmerEncounter;
 import com.botree.model.Patient;
 import com.botree.model.TPRB;
@@ -25,155 +20,181 @@ import jakarta.faces.context.FacesContext;
 @Scope("session")
 public class TprbBean {
 
-	@Autowired
-	private TPRBDao tprbDao;
+    @Autowired
+    private TPRBDao tprbDao;
 
-	@Autowired
-	private PatientDao patientDao;
+    @Autowired
+    private PatientDao patientDao;
 
-	@Autowired
-	private EncounterDao encounterDao;
+    @Autowired
+    private EncounterDao encounterDao;
 
-	private String searchName;
-	private Patient patient;
-	private boolean showPatient;
-	private boolean showTPRB;
+    private String searchName;
+    private Patient patient;
+    private boolean showPatient;
+    private boolean showTPRB;
 
-	private int bpMin;
-	private int bpMax;
-	private int pulseRate;
-	private int temperature;
-	private int respirationRate;
+    private int bpMin;
+    private int bpMax;
+    private int pulseRate;
+    private int temperature;
+    private int respirationRate;
 
-	private EmerEncounter encounter;
+    private EmerEncounter encounter;
 
-	public String getSearchName() {
-		return searchName;
-	}
 
-	public void setSearchName(String searchName) {
-		this.searchName = searchName;
-	}
+    public String getSearchName() {
+        return searchName;
+    }
 
-	public Patient getPatient() {
-		return patient;
-	}
+    public void setSearchName(String searchName) {
+        this.searchName = searchName;
+    }
 
-	public void setPatient(Patient patient) {
-		this.patient = patient;
-	}
+    public Patient getPatient() {
+        return patient;
+    }
 
-	public boolean isShowPatient() {
-		return showPatient;
-	}
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
 
-	public void setShowPatient(boolean showPatient) {
-		this.showPatient = showPatient;
-	}
+    public boolean isShowPatient() {
+        return showPatient;
+    }
 
-	public boolean isShowTPRB() {
-		return showTPRB;
-	}
+    public void setShowPatient(boolean showPatient) {
+        this.showPatient = showPatient;
+    }
 
-	public void setShowTPRB(boolean showTPRB) {
-		this.showTPRB = showTPRB;
-	}
+    public boolean isShowTPRB() {
+        return showTPRB;
+    }
 
-	public int getBpMin() {
-		return bpMin;
-	}
+    public void setShowTPRB(boolean showTPRB) {
+        this.showTPRB = showTPRB;
+    }
 
-	public void setBpMin(int bpMin) {
-		this.bpMin = bpMin;
-	}
+    public int getBpMin() {
+        return bpMin;
+    }
 
-	public int getBpMax() {
-		return bpMax;
-	}
+    public void setBpMin(int bpMin) {
+        this.bpMin = bpMin;
+    }
 
-	public void setBpMax(int bpMax) {
-		this.bpMax = bpMax;
-	}
+    public int getBpMax() {
+        return bpMax;
+    }
 
-	public int getPulseRate() {
-		return pulseRate;
-	}
+    public void setBpMax(int bpMax) {
+        this.bpMax = bpMax;
+    }
 
-	public void setPulseRate(int pulseRate) {
-		this.pulseRate = pulseRate;
-	}
+    public int getPulseRate() {
+        return pulseRate;
+    }
 
-	public int getTemperature() {
-		return temperature;
-	}
+    public void setPulseRate(int pulseRate) {
+        this.pulseRate = pulseRate;
+    }
 
-	public void setTemperature(int temperature) {
-		this.temperature = temperature;
-	}
+    public int getTemperature() {
+        return temperature;
+    }
 
-	public int getRespirationRate() {
-		return respirationRate;
-	}
+    public void setTemperature(int temperature) {
+        this.temperature = temperature;
+    }
 
-	public void setRespirationRate(int respirationRate) {
-		this.respirationRate = respirationRate;
-	}
+    public int getRespirationRate() {
+        return respirationRate;
+    }
 
-	public EmerEncounter getEncounter() {
-		return encounter;
-	}
+    public void setRespirationRate(int respirationRate) {
+        this.respirationRate = respirationRate;
+    }
 
-	public void setEncounter(EmerEncounter encounter) {
-		this.encounter = encounter;
-	}
+    public EmerEncounter getEncounter() {
+        return encounter;
+    }
 
-	public void searchPatient() {
-		var list = patientDao.searchByName(searchName);
-		if (!list.isEmpty()) {
-			patient = list.get(0);
-			showPatient = true;
-			showTPRB = false;
-		}
-	}
+    public void setEncounter(EmerEncounter encounter) {
+        this.encounter = encounter;
+    }
 
-	public void openTPRB() {
-		encounter = new EmerEncounter();
-		encounter.setPatient(patient);
-		encounter.setEncounterDateTime(new Date());
-		encounter.setStatus("OPEN");
 
-		encounterDao.save(encounter);
-		showTPRB = true;
-	}
+    public void searchPatient() {
+        var list = patientDao.searchByName(searchName);
 
-	public void saveTPRB() {
+        if (!list.isEmpty()) {
+            patient = list.get(0);
+            showPatient = true;
+            showTPRB = false;
+        } else {
+            FacesContext.getCurrentInstance().addMessage("msgs",
+                    new FacesMessage(FacesMessage.SEVERITY_WARN,
+                            "Not Found", "No patient found"));
+        }
+    }
 
-		if (patient == null || encounter == null) {
-			FacesContext.getCurrentInstance().addMessage("msgs",
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Patient or Encounter not selected"));
-			return;
-		}
+    public void openTPRB() {
+        if (patient == null) {
+            FacesContext.getCurrentInstance().addMessage("msgs",
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Error", "Select a patient first"));
+            return;
+        }
 
-		TPRB tprb = new TPRB(bpMin, bpMax, pulseRate, temperature, respirationRate, patient, encounter, new Date());
+        encounter = new EmerEncounter();
+        encounter.setPatient(patient);
+        encounter.setEncounterDateTime(new Date());
+        encounter.setStatus("OPEN");
 
-		boolean success = tprbDao.save(tprb);
+        encounterDao.save(encounter);
+        showTPRB = true;
+    }
 
-		if (success) {
-			FacesContext.getCurrentInstance().addMessage("msgs",
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "TPRB details saved successfully"));
-			resetTPRB();
-		} else {
-			FacesContext.getCurrentInstance().addMessage("msgs",
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Failed", "Unable to save TPRB details"));
-		}
-	}
+    public void saveTPRB() {
 
-	private void resetTPRB() {
-		bpMin = 0;
-		bpMax = 0;
-		pulseRate = 0;
-		temperature = 0;
-		respirationRate = 0;
-		showTPRB = false;
-	}
+        if (patient == null || encounter == null) {
+            FacesContext.getCurrentInstance().addMessage("msgs",
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Error", "Patient or Encounter not selected"));
+            return;
+        }
+
+        TPRB tprb = new TPRB(
+                bpMin,
+                bpMax,
+                pulseRate,
+                temperature,
+                respirationRate,
+                patient,
+                encounter,
+                new Date()
+        );
+
+        boolean success = tprbDao.save(tprb);
+
+        if (success) {
+            FacesContext.getCurrentInstance().addMessage("msgs",
+                    new FacesMessage(FacesMessage.SEVERITY_INFO,
+                            "Success", "TPRB details saved successfully"));
+            resetTPRB();
+        } else {
+            FacesContext.getCurrentInstance().addMessage("msgs",
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Failed", "Unable to save TPRB details"));
+        }
+    }
+
+    private void resetTPRB() {
+        bpMin = 0;
+        bpMax = 0;
+        pulseRate = 0;
+        temperature = 0;
+        respirationRate = 0;
+        showTPRB = false;
+    }
 }
