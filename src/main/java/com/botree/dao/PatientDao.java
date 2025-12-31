@@ -53,4 +53,8 @@ public class PatientDao {
         return patients;
     }
 
+    public List<Patient> searchByName(String name) {
+        return searchPatientsByName(name);
+    }
+
 }
