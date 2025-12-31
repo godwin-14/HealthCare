@@ -13,15 +13,16 @@
     <div class="header">
         <h2>HealthCare Management System</h2>
     </div>
-    
+    <ui:insert name="nav">
      <p:menubar>
-        <p:menuitem value="Search Patient"  outcome="Emergency.xhtml"/>
+        <p:menuitem value="Patient Registration"  outcome="index.xhtml"/>
+      	<p:menuitem value="Search Patient"  outcome="Emergency.xhtml"/>\
         <p:menuitem value="Emergency "  outcome="tprb.xhtml"/>
         <p:menuitem value="Emergency-New treatment"  outcome="treatment.xhtml"/>
         
-        
+      
     </p:menubar>
-
+</ui:insert>
     <div class="content">
         <ui:insert name="content"/>
     </div>

@@ -10,14 +10,14 @@ public class PathologyTest {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String testId;
+	private long testId;
 	private String testName;
 	private double cost;
 	private boolean available;
-	public String getTestId() {
+	public long getTestId() {
 		return testId;
 	}
-	public void setTestId(String testId) {
+	public void setTestId(long testId) {
 		this.testId = testId;
 	}
 	public String getTestName() {

@@ -1,5 +1,6 @@
 package com.botree.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,7 +18,9 @@ public class TestResult {
     private PatientTest patientTest;
 
     private String contentName;
+    @Column(name = "max_value")
     private double minValue;
+    @Column(name = "min_value")
     private double maxValue;
     private double observedValue;
     private String unit;
