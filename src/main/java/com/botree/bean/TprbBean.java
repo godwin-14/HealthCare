@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import com.botree.dao.EncounterDao;
 import com.botree.dao.PatientDao;
-
 import com.botree.dao.TPRBDao;
 import com.botree.model.EmerEncounter;
 import com.botree.model.Patient;
@@ -21,14 +20,8 @@ import jakarta.faces.context.FacesContext;
 @Scope("session")
 public class TprbBean {
 
-<<<<<<< HEAD
     @Autowired
     private TPRBDao tprbDao;
-=======
-	@Autowired
-	private TPRBDao tprbDao;
-	
->>>>>>> branch 'master' of https://github.com/godwin-14/HealthCare.git
 
     @Autowired
     private PatientDao patientDao;
@@ -48,7 +41,6 @@ public class TprbBean {
     private int respirationRate;
 
     private EmerEncounter encounter;
-
 
     public String getSearchName() {
         return searchName;
@@ -129,7 +121,6 @@ public class TprbBean {
     public void setEncounter(EmerEncounter encounter) {
         this.encounter = encounter;
     }
-
 
     public void searchPatient() {
         var list = patientDao.searchByName(searchName);

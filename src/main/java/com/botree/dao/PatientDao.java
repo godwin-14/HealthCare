@@ -53,8 +53,17 @@ public class PatientDao {
         return patients;
     }
 
-    public List<Patient> searchByName(String name) {
-        return searchPatientsByName(name);
+    public List<Patient> searchByName(String searchName) {
+        String searchParam = "%" + searchName.trim().toLowerCase() + "%";
+
+        try (var session = sessionFactory.openSession()) {
+            var query = session.createQuery(
+                "from Patient p where lower(trim(p.firstName)) like :name or lower(trim(p.lastName)) like :name",
+                Patient.class
+            );
+            query.setParameter("name", searchParam);
+            return query.getResultList();
+        }
     }
 
 }

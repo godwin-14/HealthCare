@@ -22,6 +22,7 @@ public class HealthCardBean {
 
 	public Integer getPatientId() {
 		return patientId;
+		
 	}
 
 	public void setPatientId(Integer patientId) {
@@ -44,12 +45,9 @@ public class HealthCardBean {
 			return;
 		}
 
-		var list = patientDao.searchById(patientId);
+		patient = patientDao.getPatient(patientId);
 
-		if (list!=null) {
-			patient = list;
-		} else {
-			patient = null;
+		if (patient == null) {
 			FacesContext.getCurrentInstance().addMessage("msgs",
 					new FacesMessage(FacesMessage.SEVERITY_WARN, "Not Found", "No patient found with ID " + patientId));
 		}
