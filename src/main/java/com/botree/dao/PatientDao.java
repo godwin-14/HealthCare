@@ -7,16 +7,40 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+
 import com.botree.model.Patient;
 
 @Repository
 public class PatientDao {
-
+	
 	@Autowired
-	private SessionFactory sessionFactory;
+	 SessionFactory sessionFactory;
 	
-	
-
+	  
+	  public boolean register(Patient patient) {
+			boolean flag=false;
+			var session=sessionFactory.openSession();
+			var tran=session.beginTransaction();
+			
+			try {
+				session.persist(patient);
+				flag=true;
+				tran.commit();
+				
+			}catch(Exception e)
+			{
+				tran.rollback();
+				e.printStackTrace();
+				flag=false;
+			}
+			
+			session.close();
+			
+			return flag;
+		}
+	  
+	  
+	  
 	  public List<Patient> searchByName(String searchName) {
 		    if (searchName == null || searchName.trim().isEmpty()) {
 		        return Collections.emptyList();
@@ -33,4 +57,28 @@ public class PatientDao {
 		        return query.getResultList();
 		    }
 		}
+
+
+
+	  public void update(Patient patient) {
+
+	        var session = sessionFactory.openSession();
+	        var tran = session.beginTransaction();
+
+	        session.update(patient);
+
+	        tran.commit();
+	        session.close();
+	  }
+		
+	  
+	  public List<Patient> searchById(int pid) {
+		    var session = sessionFactory.openSession();
+		    var query = session.createQuery("from Patient p where p.pid = :pid", Patient.class);
+		    query.setParameter("pid", pid);
+		    var list = query.getResultList();
+		    session.close();
+		    return list;
+		}
+		
 }
