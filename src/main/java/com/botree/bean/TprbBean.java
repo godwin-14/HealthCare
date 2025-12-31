@@ -23,6 +23,7 @@ public class TprbBean {
 
 	@Autowired
 	private TPRBDao tprbDao;
+	
 
 	@Autowired
 	private PatientDao patientDao;

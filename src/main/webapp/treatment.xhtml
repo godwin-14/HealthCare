@@ -122,16 +122,14 @@
                             <p:inputTextarea value="#{treatmentBean.presentingComplaints}" rows="3" />
 
                             <p:outputLabel value="Disease Set:" />
-                            <p:inputTextarea value="#{treatmentBean.diseaseSet}" rows="2" readonly="true" />
+                            <p:inputTextarea value="#{treatmentBean.diseaseSet}" rows="2" 
+                                placeholder="Enter diseases separated by commas" />
 
                             <p:outputLabel value="Provisional Diagnosis:" />
-                            <p:inputText value="#{treatmentBean.provisionalDiagnosis}" readonly="true" />
+                            <p:inputText value="#{treatmentBean.provisionalDiagnosis}" 
+                                placeholder="Enter diagnosis" />
 
                         </p:panelGrid>
-
-                        <p:commandButton value="Edit Disease Set"
-                            action="editDisease.xhtml?faces-redirect=true"
-                            style="margin-top:10px" />
                     </p:fieldset>
 
                     <p:fieldset legend="Prescribed Medicines" style="margin-top:20px">
@@ -169,22 +167,10 @@
                             style="margin-top:10px" />
                     </p:fieldset>
 
-                    <p:panelGrid columns="2" styleClass="ui-fluid" style="margin-top:20px">
-                        <p:outputLabel value="Refer to Ward:" />
-                        <p:selectOneMenu value="#{treatmentBean.referWard}">
-                            <f:selectItems value="#{treatmentBean.wards}" />
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-
-                    <p:separator />
-
                     <p:commandButton value="Submit"
                         action="#{treatmentBean.submitTreatment}"
                         update="@form"
                         styleClass="ui-button-success" />
-
-                    <p:commandButton value="Clear" type="reset"
-                        styleClass="ui-button-secondary" />
 
                 </p:outputPanel>
             </p:panel>
